@@ -1,0 +1,6 @@
+.ColumnSecond {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    
+}
