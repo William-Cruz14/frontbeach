@@ -5,7 +5,7 @@ import Spinner from 'react-bootstrap/Spinner';
 
 const MapaAzure = ({ coord }) => {
     const [isLoading, setIsLoading] = useState(true);
-    const API_KEY = process.env.REACT_APP_KEY;
+    const apiKey = import.meta.env.VITE_API_KEY;
 
     useEffect(() => {
         let map = null;
@@ -22,7 +22,7 @@ const MapaAzure = ({ coord }) => {
                         view: 'Auto',
                         authOptions: {
                             authType: 'subscriptionKey',
-                            subscriptionKey: API_KEY
+                            subscriptionKey: apiKey
                         }
                     });
 
