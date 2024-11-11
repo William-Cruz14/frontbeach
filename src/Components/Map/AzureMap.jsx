@@ -7,7 +7,7 @@ import styles from './AzureMap.module.css';
 
 const MapaAzure = ({ coord }) => {
     const [isLoading, setIsLoading] = useState(true);
-    const apiKey = import.meta.env.VITE_API_KEY;
+    const apiKey = process.env.VITE_API_KEY;
 
     useEffect(() => {
         let map = null;
