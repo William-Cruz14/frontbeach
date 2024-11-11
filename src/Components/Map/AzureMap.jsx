@@ -11,7 +11,6 @@ const MapaAzure = ({ coord }) => {
     
     useEffect(() => {
         let map = null;
-        console.log(apiKey)
         const initializeMap = async () => {
             // Se eu conter as coordenadas da "praia" pesquisada eu seguirei montando o mapa.
             if (coord) {
