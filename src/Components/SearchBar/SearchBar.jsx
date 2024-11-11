@@ -82,7 +82,7 @@ const SearchBar = ({ onSearch }) => {
             {error && (
                 <Row className="mt-2">
                     <Col>
-                        <div className="text-danger">{error}</div>
+                        <Container className="text-danger">{error}</Container>
                     </Col>
                 </Row>
             )}

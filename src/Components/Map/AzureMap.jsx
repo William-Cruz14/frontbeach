@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import atlas from 'azure-maps-control';
 import 'azure-maps-control/dist/atlas.min.css';
 import Spinner from 'react-bootstrap/Spinner';
+import Container from 'react-bootstrap/Container';
+import styles from './AzureMap.module.css';
 
 const MapaAzure = ({ coord }) => {
     const [isLoading, setIsLoading] = useState(true);
@@ -56,16 +58,16 @@ const MapaAzure = ({ coord }) => {
 
     if (!coord) {
         return (
-            <div className="d-flex justify-content-center align-items-center" style={{ height: '600px' }}>
+            <Container className={styles.Container}>
                 <Spinner animation="grow" role="status">
                     <span className="visually-hidden">Carregando...</span>
                 </Spinner>
-            </div>
+            </Container>
         );
     }
 
     return (
-        <div>
+        <Container>
             <div id="mapContainer" style={{ width: '100%', height: '600px' }} />
             {isLoading && (
                 <div 
@@ -79,7 +81,7 @@ const MapaAzure = ({ coord }) => {
                     <Spinner animation="grow" />
                 </div>
             )}
-        </div>
+        </Container>
     );
 };
 
