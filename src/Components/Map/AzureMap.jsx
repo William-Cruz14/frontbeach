@@ -7,11 +7,11 @@ import styles from './AzureMap.module.css';
 
 const MapaAzure = ({ coord }) => {
     const [isLoading, setIsLoading] = useState(true);
-    const apiKey = process.env.VITE_API_KEY;
-
+    const apiKey = import.meta.env.VITE_API_KEY;
+    
     useEffect(() => {
         let map = null;
-
+        console.log(apiKey)
         const initializeMap = async () => {
             // Se eu conter as coordenadas da "praia" pesquisada eu seguirei montando o mapa.
             if (coord) {
