@@ -1,6 +1,6 @@
 export async function getGeocode(address) {
 
-    const uri = "https://beachtest.onrender.com/geocode?address=";
+    const uri = "https://beachtest.onrender.com/api/geocode?address=";
     const uriBase = `${uri}${address}`;
 
     try {

@@ -6,82 +6,99 @@ import Container from 'react-bootstrap/Container';
 import styles from './AzureMap.module.css';
 
 const MapaAzure = ({ coord }) => {
-    const [isLoading, setIsLoading] = useState(true);
-    const apiKey = import.meta.env.VITE_API_KEY;
-    
-    useEffect(() => {
-        let map = null;
-        const initializeMap = async () => {
-            // Se eu conter as coordenadas da "praia" pesquisada eu seguirei montando o mapa.
-            if (coord) {
-                try {
-                    const center = coord;
+   const [isLoading, setIsLoading] = useState(true);
+   const apiKey = import.meta.env.VITE_API_KEY;
+   
+   useEffect(() => {
+       let map = null;
+       const initializeMap = async () => {
+           if (coord) {
+               try {
+                   const center = coord;
 
-                    map = new atlas.Map('mapContainer', {
-                        center: center,
-                        zoom: 15,
-                        view: 'Auto',
-                        authOptions: {
-                            authType: 'subscriptionKey',
-                            subscriptionKey: apiKey
-                        }
-                    });
+                   map = new atlas.Map('mapContainer', {
+                       center: center,
+                       zoom: 15,
+                       view: 'Auto',
+                       authOptions: {
+                           authType: 'subscriptionKey',
+                           subscriptionKey: apiKey
+                       }
+                   });
 
-                    map.events.add('ready', () => {
-                        const marker = new atlas.HtmlMarker({
-                            color: '#12496f',
-                            text: '🌊',
-                            position: center,
-                            draggable: false
-                        });
+                   map.events.add('ready', () => {
+                       
+                    const datasource = new atlas.source.DataSource('myDataSource');
+                       map.sources.add(datasource);
 
-                        map.markers.add(marker);
-                        setIsLoading(false);
-                    });
-                } catch (error) {
-                    console.error('Erro ao inicializar o mapa:', error);
-                    setIsLoading(false);
-                }
-            }
-        };
+                       datasource.add(new atlas.data.Feature(
+                           new atlas.data.Point(center)
+                       ));
 
-        initializeMap();
+                       // Adiciona um marcador 
+                       const marker = new atlas.HtmlMarker({
+                           color: '#003366',
+                           position: center,
+                           draggable: false
+                       });
+                       map.markers.add(marker);
 
-        
-        return () => {
-            if (map) {
-                map.dispose();
-            }
-        };
-    }, [coord]);
+                       // Adicionar uma bolha
+                       const bubbleLayer = new atlas.layer.BubbleLayer(datasource, null, {
+                           radius: 15,
+                           color: 'rgba(18, 73, 111, 0.3)',  // Cor semi-transparente
+                           strokeColor: '#003366',
+                           strokeWidth: 2
+                       });
 
-    if (!coord) {
-        return (
-            <Container className={styles.Container}>
-                <Spinner animation="grow" role="status">
-                    <span className="visually-hidden">Carregando...</span>
-                </Spinner>
-            </Container>
-        );
-    }
+                       map.layers.add(bubbleLayer);
 
-    return (
-        <Container>
-            <div id="mapContainer" style={{ width: '100%', height: '600px' }} />
-            {isLoading && (
-                <div 
-                    style={{ 
-                        position: 'absolute', 
-                        top: '50%', 
-                        left: '50%', 
-                        transform: 'translate(-50%, -50%)' 
-                    }}
-                >
-                    <Spinner animation="grow" />
-                </div>
-            )}
-        </Container>
-    );
+                       setIsLoading(false);
+                   });
+                   
+               } catch (error) {
+                   console.error('Erro ao inicializar o mapa:', error);
+                   setIsLoading(false);
+               }
+           }
+       };
+
+       initializeMap();
+
+       return () => {
+           if (map) {
+               map.dispose();
+           }
+       };
+   }, [coord]);
+
+   if (!coord) {
+       return (
+           <Container className={styles.Container}>
+               <Spinner animation="grow" role="status">
+                   <span className="visually-hidden">Carregando...</span>
+               </Spinner>
+           </Container>
+       );
+   }
+
+   return (
+       <Container>
+           <div id="mapContainer" style={{ width: '100%', height: '600px' }} />
+           {isLoading && (
+               <div 
+                   style={{ 
+                       position: 'absolute', 
+                       top: '50%', 
+                       left: '50%', 
+                       transform: 'translate(-50%, -50%)' 
+                   }}
+               >
+                   <Spinner animation="grow" />
+               </div>
+           )}
+       </Container>
+   );
 };
 
 export { MapaAzure };
