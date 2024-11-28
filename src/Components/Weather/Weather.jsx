@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Card from 'react-bootstrap/Card';
 import Spinner from 'react-bootstrap/Spinner';
+import { Placeholder } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import { PrevisionDay } from './subComponents/PrevisionDay/PrevisionDay';
 import { QualityAir } from './subComponents/QualityAir/QualityAir';
@@ -32,10 +33,13 @@ const AzureWeather = ({target, data}) => {
                         
                     </Card>
             ): 
-            <Container className={styles.Container}>
-            <Spinner animation="grow" role="status">
-                <span className="visually-hidden">Carregando...</span>
-            </Spinner>
+            <Container>
+                <Placeholder as="p" animation="glow">
+                    <Placeholder xs={12} />
+                </Placeholder>
+                <Placeholder as="p" animation="wave">
+                    <Placeholder xs={12} />
+                </Placeholder>     
             </Container>
             }
         </Container>

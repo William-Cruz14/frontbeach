@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import { getGeocode } from '../../utils/getGeocode';
 import { getWaether } from '../../utils/getWeather';
+import './SearchBar.css';
 
 const SearchBar = ({ onSearch }) => {
     const [search, setSearch] = useState('');
@@ -74,6 +75,7 @@ const SearchBar = ({ onSearch }) => {
                     <Button 
                         onClick={handleSearchClick}
                         disabled={isLoading}
+                        id='Button'
                     >
                         {isLoading ? 'Pesquisando...' : 'Pesquisar'}
                     </Button>

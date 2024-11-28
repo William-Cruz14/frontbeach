@@ -6,7 +6,7 @@ import { MapaAzure } from '../Map';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
-import styles from './Dashboard.module.css';
+import './Dashboard.css';
 
 const Dashboard = () => {
     const [geocode, setGeocode] = useState(null);
@@ -27,11 +27,11 @@ const Dashboard = () => {
     return (
         <Container>
             <Col>
-                <Row className={styles.RowFirst}>
+                <Row id='RowFirst'>
                     <SearchBar onSearch={handleSearchResults} />
                 </Row>
                 <Row>
-                    <Col lg={8} xs={12} className={styles.ColumnFirst}>
+                    <Col lg={8} xs={12}>
                         <MapaAzure  coord={geocode} />
                     </Col>
                     <Col>
